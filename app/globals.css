@@ -44,6 +44,21 @@ h4 {
   background: linear-gradient(to right, var(--background) 10%, #6DD5FA 70%, var(--skyBlue)); 
 }
 
+.sky-gradient-bg {
+  background: var(--skyBlue); 
+  background: -webkit-linear-gradient(to right, #6DD5FA, var(--skyBlue));
+  background: linear-gradient(to right, #6DD5FA, var(--skyBlue)); 
+}
+
 .black-bg {
   background-color: var(--foreground);
+}
+
+.sidebar-link {
+  @apply flex items-center gap-3 p-3 rounded-xl bg-transparent;
+  transition: background 0.5s ease-in-out;
+}
+
+.sidebar-link:hover {
+  background: linear-gradient(to right, hsla(196, 93%, 70%, 0.5), hsla(204, 64%, 44%, 0.5));
 }

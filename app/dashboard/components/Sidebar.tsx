@@ -1,45 +1,44 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+// import { useState } from "react";
 import { Home, User, Settings } from "lucide-react";
+import Image from "next/image";
+import logo from '@/public/logo.png'
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(true);
 
   return (
     <div
-      className={`${
-        open ? "w-64" : "w-20"
-      } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}
+      className={`bg-black text-white transition-all duration-300 flex flex-col items-center w-16`}
     >
-      <div className="flex items-center justify-between p-4">
-        <h2 className={`font-bold text-xl ${!open && "hidden"}`}>Editar</h2>
-        <button
-          onClick={() => setOpen(!open)}
-          className="text-gray-500 hover:text-gray-700"
-        >
-          ☰
-        </button>
+      <div className="w-4/5 flex items-center justify-center border-gray-700 border-b py-4">
+        <Image
+        src={logo}
+        alt='Logo'
+        width={40}
+        height={40}
+        />
       </div>
 
       <nav className="flex-1 p-3 space-y-2">
         <Link
           href="/dashboard"
-          className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-100"
+          className="sidebar-link"
         >
-          <Home size={20} /> {open && "Home"}
+          <Home size={24} />
         </Link>
         <Link
           href="/dashboard/profile"
-          className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-100"
+          className="sidebar-link"
         >
-          <User size={20} /> {open && "Profile"}
+          <User size={24} />
         </Link>
         <Link
           href="/dashboard/settings"
-          className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-100"
+          className="sidebar-link"
         >
-          <Settings size={20} /> {open && "Settings"}
+          <Settings size={24} />
         </Link>
       </nav>
     </div>
