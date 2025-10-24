@@ -7,6 +7,7 @@ import Image from "next/image";
 import googleIcon from '@/public/icons/google.svg'
 import Button from "@/components/ui/Button";
 import rightImage from '@/public/images/1.jpg'
+import { Eye, EyeOff } from "lucide-react";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -52,31 +54,21 @@ export default function SignUpPage() {
 
           {error && <p className="text-red-600 text-sm">{error}</p>}
 
-          <button
-          type="button"
-          onClick={() => {
-            const baseUrl =
-              process.env.NEXT_PUBLIC_NEXTAUTH_URL || window.location.origin;
-            const googleUrl = `${baseUrl}/api/auth/signin/google?callbackUrl=${encodeURIComponent(
-              `${baseUrl}/dashboard`
-            )}`;
-            window.open(
-              googleUrl,
-              "Editar Google Sign-In",
-              "width=600,height=700,top=150,left=400,noopener,noreferrer"
-            );
-          }}
-          className="w-full flex items-center justify-center relative gap-2 border border-gray-300 rounded-md py-2.5 hover:bg-gray-50 transition-all cursor-pointer"
-        >
-          <Image
-            src={googleIcon}
-            alt="Google icon"
-            width={22}
-            height={22}
-            className="absolute left-3"
-          />
-          <span className="text-gray-700 font-medium">Continue with Google</span>
-        </button>
+          <button 
+          type="button" 
+          onClick={() => signIn("google", { callbackUrl: "/dashboard" })} 
+          className="w-full flex items-center justify-center relative gap-2 border border-gray-300 rounded-md py-2.5 hover:bg-gray-50 transition-all cursor-pointer" > 
+            <Image 
+            src={googleIcon} 
+            alt="Google icon" 
+            width={22} 
+            height={22} 
+            className="absolute left-3" 
+            />
+            <span className="text-gray-700 font-medium">
+              Continue with Google
+            </span> 
+          </button>
 
           {/* Divider */}
           <div className="flex items-center justify-center my-3">
@@ -95,23 +87,40 @@ export default function SignUpPage() {
             required
           />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2980B9]"
-            required
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-4 py-2 pr-10 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2980B9]"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
 
           <Button
             variant="primary"
             type="submit"
             disabled={loading}
-            className="w-full py-3"
+            className="w-full py-3 flex items-center justify-center gap-2"
           >
-            {loading ? "Creating account..." : "Continue"}
+            {loading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Creating account...
+              </>
+            ) : (
+              "Continue"
+            )}
           </Button>
+          
 
           <p className="text-sm text-center text-gray-500">
             Already have an account?{" "}
