@@ -54,11 +54,45 @@ h4 {
   background-color: var(--foreground);
 }
 
-.sidebar-link {
-  @apply flex items-center gap-3 p-3 rounded-xl bg-transparent;
-  transition: background 0.5s ease-in-out;
+.sidebar-button {
+  min-width: 3.5rem;
+  min-height: 3.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: color 200ms ease;
 }
 
-.sidebar-link:hover {
-  background: linear-gradient(to right, hsla(196, 93%, 70%, 0.5), hsla(204, 64%, 44%, 0.5));
+.sidebar-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, transparent 30%, #6dd4fa91, var(--skyBlue));
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  z-index: 0;
 }
+
+.sidebar-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-button:hover::before {
+  opacity: 1;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

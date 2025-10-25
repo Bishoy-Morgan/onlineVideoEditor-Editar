@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import { ReactNode, ComponentPropsWithoutRef, useState } from "react";
 
-type Variant = "primary" | "secondary";
+type Variant = "primary" | "secondary" | "tertiary";
 
 interface ButtonProps extends ComponentPropsWithoutRef<typeof motion.button> {
     variant?: Variant;
@@ -26,9 +26,9 @@ export default function Button({
     const variants: Record<Variant, string> = {
         primary: "bg-black text-white border border-black",
         secondary: "bg-white text-black border border-gray-300",
+        tertiary: "bg-linear-to-r bg-cyan-400 to-cyan-600 ",
     };
 
-    // Animation variants for the curved overlay
     const overlayVariants = {
         initial: {
             y: "100%",
@@ -66,7 +66,7 @@ export default function Button({
             {/* Curved overlay with circular top */}
             <motion.div
                 className={clsx(
-                    "absolute inset-x-0 bottom-0",
+                    "absolute inset-x-0 bottom-0 ",
                     variant === "primary" ? "bg-white" : "bg-black"
                 )}
                 initial="initial"
