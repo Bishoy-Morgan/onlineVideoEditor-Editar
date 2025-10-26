@@ -40,6 +40,11 @@ export default function SignUpPage() {
     router.push("/dashboard");
   }
 
+  const handleGoogleButton = async () => {
+    setLoading(true);
+    await signIn("google", { callbackUrl: "/dashboard" });
+  }
+
   return (
     <div className="w-full flex items-center justify-center h-screen">
       {/* Left Side - Form Section */}
@@ -56,7 +61,7 @@ export default function SignUpPage() {
 
           <button 
           type="button" 
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })} 
+          onClick={handleGoogleButton} 
           className="w-full flex items-center justify-center relative gap-2 border border-gray-300 rounded-md py-2.5 hover:bg-gray-50 transition-all cursor-pointer" > 
             <Image 
             src={googleIcon} 
